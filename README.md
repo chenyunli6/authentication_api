@@ -14,6 +14,7 @@ Things you may want to cover:
   * faker
   * database_cleaner
   * jwt
+  * bcrypt
 
 * Configuration
 
