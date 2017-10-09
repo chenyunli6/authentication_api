@@ -8,6 +8,12 @@ Things you may want to cover:
 * Ruby version
 
 * System dependencies
+  * rspec-rails
+  * factory_girl_rails
+  * shoulda_matchers
+  * faker
+  * database_cleaner
+  * jwt
 
 * Configuration
 
