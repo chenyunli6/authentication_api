@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :user do
     mobile { Faker::PhoneNumber.cell_phone }
-    validate_code { Faker::Number.hexadecimal(4) }
+    validate_code '123456'
     password '123456'
   end
 end
