@@ -15,8 +15,8 @@ class AuthenticateUser
 
   def user
     user = User.find_by(mobile: mobile)
-    return user if user && user.authenticate(password)
-    return user if user && user.verify_by_code?(validate_code)
+    return user if user && password.present? && user.authenticate(password)
+    return user if user && validate_code.present? && user.verify_by_code?(validate_code)
     raise(ExceptionHandler::AuthenticationError, Message.invalid_credentials)
   end
 end
