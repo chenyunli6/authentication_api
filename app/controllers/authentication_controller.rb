@@ -1,4 +1,6 @@
 class AuthenticationController < ApplicationController
+  skip_before_action :authorize_request, only: :create
+
   def create
     auth_token =
       AuthenticateUser.new(auth_params[:mobile], auth_params[:password], auth_params[:validate_code]).call
