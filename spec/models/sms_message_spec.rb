@@ -4,7 +4,13 @@ RSpec.describe SmsMessage, type: :model do
   describe '#deliver_fake_sms' do
     it 'send deliver_fake_sms' do
       code = SecureRandom.random_number.to_s.slice(-6..-1)
-      expect(SmsMessage.deliver_fake_sms(Faker::PhoneNumber.cell_phone, code)).to be_truthy
+      expect(SmsMessage.deliver_fake_sms(Faker::PhoneNumber.cell_phone, code)).to eq code
+    end
+
+    it 'send the latest_message when send sms message greater than 3 times' do
+      FactoryGirl.create_list(:sms_message, 3)
+      mobile = Faker::PhoneNumber.cell_phone
+      expect(SmsMessage.deliver_fake_sms(mobile, '1111')).to eq SmsMessage.latest_message(mobile)&.code
     end
   end
 
@@ -24,9 +30,14 @@ RSpec.describe SmsMessage, type: :model do
     end
 
     context 'when not has the latest message' do
-      it "return nil" do
+      it 'return nil' do
         mobile = '18012121212'
         expect(SmsMessage.latest_message(mobile)).to be_nil
+      end
+
+      it 'returns nil' do
+        sms_message = create :sms_message, send_time: Faker::Time.between(2.days.ago, 1.days.ago, :all)
+        expect(SmsMessage.latest_message(sms_message.mobile)).to be_nil
       end
     end
   end

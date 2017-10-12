@@ -1,17 +1,11 @@
 class SmsMessage < ApplicationRecord
   include FakeSMS
 
-  # def deliver(mobile, content, options = {})
-  #   if options[:method] == :general
-  #     Request.post 'sms/send.json', mobile: mobile, text: content, extend: options[:extend]
-  #   else
-  #     options[:code] = content
-  #     message = parse_content options
-  #     tpl_id = options[:tpl_id] || SmartSMS.config.template_id
-  #     Request.post 'sms/tpl_send.json', tpl_id: tpl_id, mobile: phone, tpl_value: message
-  #   end
-  # end
+  scope :latest_messages_by_mobile,
+    -> (mobile, start_time, end_time) { where('mobile = ? and send_time >= ? and send_time <= ?', mobile, start_time, end_time) }
+
   def self.deliver_fake_sms(mobile, code = self.generate_validate_code)
+    return latest_message(mobile)&.code if latest_messages(mobile).length >= 3
     company = APP_CONFIG['sms']['company']
     sms = FakeSMS.build_fake_sms mobile, code, company
     sms_message = SmsMessage.new(sms)
@@ -23,10 +17,16 @@ class SmsMessage < ApplicationRecord
     SecureRandom.random_number.to_s.slice(-6..-1)
   end
 
-  def self.latest_message(mobile)
+  # 过期时间内的所有短信
+  def self.latest_messages(mobile)
     end_time = Time.now
     start_time = end_time - APP_CONFIG['sms']['expires_in'].to_i
-    where('mobile = ? and send_time >= ? and send_time <= ?', mobile, start_time, end_time)&.last
+    @latest_message = latest_messages_by_mobile(mobile, start_time, end_time)
+  end
+
+  # 过期时间内最近一条短信
+  def self.latest_message(mobile)
+    latest_messages(mobile)&.last
   end
 
   def self.validated_code?(mobile, code)
