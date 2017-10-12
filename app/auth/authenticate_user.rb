@@ -1,5 +1,5 @@
 class AuthenticateUser
-  def initialize(mobile, password=nil, validate_code=nil)
+  def initialize(mobile, password = nil, validate_code = nil)
     @mobile = mobile
     @password = password
     @validate_code = validate_code

@@ -4,7 +4,7 @@ class AuthenticationController < ApplicationController
   def create
     auth_token =
       AuthenticateUser.new(auth_params[:mobile], auth_params[:password], auth_params[:validate_code]).call
-    success(Message.login_success, auth_token: auth_token)
+    success_response(Message.login_success, auth_token: auth_token)
   end
 
   private

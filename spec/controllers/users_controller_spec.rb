@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe UsersController, type: :controller do
   describe 'POST /signup' do
     context 'when valid request' do
-      before {
+      before do
         mobile = Faker::PhoneNumber.cell_phone
         create :sms_message, mobile: mobile, code: '123456'
         post :create, params: { mobile: mobile, validate_code: '123456' }
-      }
+      end
 
       it 'creates a new user' do
         expect(response).to have_http_status(200)
@@ -30,7 +30,7 @@ RSpec.describe UsersController, type: :controller do
 
       it 'returns failure message' do
         mobile = Faker::PhoneNumber.cell_phone
-        user = create :user, mobile: mobile
+        create :user, mobile: mobile
         post :create, params: { mobile: mobile }
         expect(json['msg']).to match(/User has already exist/)
       end

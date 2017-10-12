@@ -18,9 +18,7 @@ RSpec.describe PasswordsController, type: :controller do
       }
     end
 
-    before {
-      request.headers.merge! headers
-    }
+    before { request.headers.merge! headers }
 
     context 'when password is valid' do
       it 'update user password_digest' do
@@ -32,15 +30,15 @@ RSpec.describe PasswordsController, type: :controller do
 
     context 'when password is not valid' do
       it 'returns failure message' do
-        expect{ post :create, params: {} }.to raise_error(ActiveRecord::RecordInvalid, /Password can't be blank/)
+        expect { post :create, params: {} }.to raise_error(ActiveRecord::RecordInvalid, /Password can't be blank/)
       end
 
-      it "returns failure message when password_confirmation is not match" do
-        expect{ post :create, params: invalid_password }.to raise_error(ActiveRecord::RecordInvalid, /Password confirmation doesn't match Password/)
+      it 'returns failure message when password_confirmation is not match' do
+        expect { post :create, params: invalid_password }.to raise_error(ActiveRecord::RecordInvalid, /Password confirmation doesn't match Password/)
       end
 
-      it "returns failure message when password_confirmation is blank" do
-        expect{ post :create, params: { password: '123123', password_confirmation: '' } }.to raise_error(ActiveRecord::RecordInvalid, /Password confirmation doesn't match Password/)
+      it 'returns failure message when password_confirmation is blank' do
+        expect { post :create, params: { password: '123123', password_confirmation: '' } }.to raise_error(ActiveRecord::RecordInvalid, /Password confirmation doesn't match Password/)
       end
     end
   end

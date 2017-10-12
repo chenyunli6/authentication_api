@@ -5,7 +5,7 @@ module FakeSMS
   #
   #   * mobile: mobile number
   #   * code:   verification code
-  #   * company: assigned company, format is【company】
+  #   * company: assigned company, format is [company]
   #
   def self.build_fake_sms(mobile, code, company)
     {

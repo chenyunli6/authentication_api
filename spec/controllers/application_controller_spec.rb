@@ -1,4 +1,4 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe ApplicationController, type: :controller do
   let!(:user) { create(:user) }
@@ -9,7 +9,7 @@ RSpec.describe ApplicationController, type: :controller do
     context 'when auth token is passed' do
       before { allow(request).to receive(:headers).and_return(headers) }
 
-      it "sets the current user" do
+      it 'sets the current user' do
         expect(subject.instance_eval { authorize_request }).to eq(user)
       end
     end
@@ -20,8 +20,7 @@ RSpec.describe ApplicationController, type: :controller do
       end
 
       it 'raises MissingToken error' do
-        expect { subject.instance_eval { authorize_request } }.
-          to raise_error(ExceptionHandler::MissingToken, /Missing token/)
+        expect { subject.instance_eval { authorize_request } }.to raise_error(ExceptionHandler::MissingToken, /Missing token/)
       end
     end
   end

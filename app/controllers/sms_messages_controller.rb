@@ -3,7 +3,7 @@ class SmsMessagesController < ApplicationController
 
   def create
     code = SmsMessage.deliver_fake_sms sms_message_params[:mobile]
-    success('OK', code: code)
+    success_response('OK', code: code)
   end
 
   private

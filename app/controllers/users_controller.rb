@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   def create
     user = User.create!(user_params)
     auth_token = AuthenticateUser.new(user.mobile, nil, user_params[:validate_code]).call
-    success(Message.account_created, auth_token: auth_token)
+    success_response(Message.account_created, auth_token: auth_token)
   end
 
   private
@@ -19,14 +19,14 @@ class UsersController < ApplicationController
   end
 
   def check_user_exist
-    return fail(Message.user_exist) if User.find_by_mobile(user_params[:mobile])
+    return fail_response(Message.user_exist) if User.find_by_mobile(user_params[:mobile])
   end
 
   def check_mobile
-    return fail(Message.not_found('mobile')) unless SmsMessage.find_by_mobile(user_params[:mobile])
+    return fail_response(Message.not_found('mobile')) unless SmsMessage.find_by_mobile(user_params[:mobile])
   end
 
   def check_validate_code
-    return fail(Message.invalid_code) unless SmsMessage.validated_code?(user_params[:mobile], user_params[:validate_code])
+    return fail_response(Message.invalid_code) unless SmsMessage.validated_code?(user_params[:mobile], user_params[:validate_code])
   end
 end

@@ -1,0 +1,43 @@
+# https://github.com/bbatsov/rubocop/blob/master/config/default.yml
+# https://github.com/bbatsov/rubocop/blob/master/config/disabled.yml
+# https://github.com/bbatsov/rubocop/blob/master/config/enabled.yml
+
+Rails:
+  Enabled: true
+
+Documentation:
+  Enabled: false
+
+AllCops:
+  TargetRubyVersion: 2.3
+  Exclude:
+    - 'Gemfile'
+    - 'spec/spec_helper.rb'
+    - 'spec/rails_helper.rb'
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+    - 'config/puma.rb'
+    - 'config/environments/*'
+    - 'config/application.rb'
+    - 'bin/*'
+
+Metrics/LineLength:
+  Max: 200
+
+Metrics/MethodLength:
+  Max: 55
+
+Metrics/CyclomaticComplexity:
+  Max: 26
+
+
+
+# This cop checks whether the source file has a utf-8 encoding comment or not.
+# This check makes sense only for code that should support Ruby 1.9,
+# since in 2.0+ utf-8 is the default source file encoding.
+Style/Encoding:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: when_needed
+  Enabled: false
