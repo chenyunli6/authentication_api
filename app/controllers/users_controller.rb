@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   end
 
   def check_mobile
-    return fail_response(Message.not_found('mobile')) unless SmsMessage.find_by_mobile(user_params[:mobile])
+    return fail_response(Message.not_match_sms_message) unless SmsMessage.find_by_mobile(user_params[:mobile])
   end
 
   def check_validate_code

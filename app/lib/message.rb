@@ -11,6 +11,10 @@ class Message
     "Sorry, #{record} not found"
   end
 
+  def self.not_match_sms_message
+    'Sorry, no validate_code matched the mobile'
+  end
+
   def self.invalid_credentials
     'Invalid credentials'
   end

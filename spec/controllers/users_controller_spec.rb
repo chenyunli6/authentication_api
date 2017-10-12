@@ -25,7 +25,7 @@ RSpec.describe UsersController, type: :controller do
     context 'when invalid request' do
       it 'returns failure message' do
         post :create, params: {}
-        expect(json['msg']).to match(/Sorry, mobile not found/)
+        expect(json['msg']).to match(/Sorry, no validate_code matched the mobile/)
       end
 
       it 'returns failure message' do
