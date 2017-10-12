@@ -27,6 +27,7 @@
   rspec
 
 * 测试参考
+  都是 post 方式
   * 获取短信验证码：http://localhost:3000/sms/code
     * 参数：mobile: 'xxx'
     * 一个小时内只能发送三次，超过三次之后的请求都只返回最后有效的验证码
@@ -37,3 +38,4 @@
     * 或者参数：mobile: 'xxx', password: 'xxx'
   * 注册后设置密码 http://localhost:3000/passwords
     * 参数：password: 'xxx', password_confirmation: 'xxx'
+    * headers 中需含有 Authorization: 'xxxxxxxxxxxx'
