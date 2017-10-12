@@ -1,11 +1,7 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
+# AUTHENTICATION API
 
 * Ruby version
+  2.3.1
 
 * System dependencies
   * rspec-rails
@@ -17,15 +13,27 @@ Things you may want to cover:
   * bcrypt
 
 * Configuration
+  关于短信的配置
+    sms:
+      company: 云片网
+      expires_in: 3600 # second
 
 * Database creation
+  sqlite3
 
 * Database initialization
 
 * How to run the test suite
+  rspec
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* 测试参考
+  * 获取短信验证码：http://localhost:3000/sms/code
+    * 参数：mobile: 'xxx'
+    * 一个小时内只能发送三次，超过三次之后的请求都只返回最后有效的验证码
+  * 注册 http://localhost:3000/signup
+    * 参数：mobile: 'xxx', validate_code: 'xxx'
+  * 登录 http://localhost:3000/login
+    * 参数：mobile: 'xxx', validate_code: 'xxx'
+    * 或者参数：mobile: 'xxx', password: 'xxx'
+  * 注册后设置密码 http://localhost:3000/passwords
+    * 参数：password: 'xxx', password_confirmation: 'xxx'
