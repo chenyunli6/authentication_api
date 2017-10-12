@@ -31,9 +31,15 @@ RSpec.describe AuthenticationController, type: :controller do
     before { request.headers.merge! headers }
 
     context 'when request is valid' do
-      it 'returns an authentication token' do
+      it 'returns an authentication token with mobile and password' do
         post :create, params: valid_credentials
-        expect(json['auth_token']).not_to be_nil
+        expect(json['data']['auth_token']).not_to be_nil
+      end
+
+      it 'returns an authentication token with mobile and validate_code' do
+        create :sms_message, mobile: user.mobile, code: user.validate_code
+        post :create, params: valid_credentials_with_code
+        expect(json['data']['auth_token']).not_to be_nil
       end
     end
 

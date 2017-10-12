@@ -10,11 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171009134618) do
+ActiveRecord::Schema.define(version: 20171012044257) do
+
+  create_table "sms_messages", force: :cascade do |t|
+    t.string "sid"
+    t.string "mobile"
+    t.datetime "send_time"
+    t.text "text"
+    t.string "code"
+    t.string "send_status"
+    t.string "report_status"
+    t.string "fee"
+    t.datetime "user_receive_time"
+    t.text "error_msg"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sid"], name: "index_sms_messages_on_sid"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "mobile"
-    t.string "validate_code"
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

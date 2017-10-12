@@ -1,4 +1,12 @@
 class Message
+  def self.login_success
+    'Login success'
+  end
+
+  def self.set_password_successfully
+    'Set password successfully'
+  end
+
   def self.not_found(record = 'record')
     "Sorry, #{record} not found"
   end
@@ -9,6 +17,14 @@ class Message
 
   def self.invalid_token
     'Invalid token'
+  end
+
+  def self.invalid_code
+    'Invalid code'
+  end
+
+  def self.user_exist
+    'User has already exist'
   end
 
   def self.missing_token

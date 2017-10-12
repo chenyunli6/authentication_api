@@ -1,0 +1,13 @@
+default: &default
+  sms:
+    company: 云片网
+    expires_in: 3600
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default

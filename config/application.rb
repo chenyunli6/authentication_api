@@ -16,6 +16,12 @@ require "action_cable/engine"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+APP_CONFIG = if Rails.env.production?
+               YAML.load(ERB.new(File.new('config/application.yml').read).result)[Rails.env]
+             else
+               YAML.load_file('config/application.yml')[Rails.env]
+             end
+
 module AuthenticationApi
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
