@@ -11,8 +11,8 @@ module Response
     render json: result(0, msg, data)
   end
 
-  def fail_response(msg = 'FAIL', data = {})
-    render json: result(1, msg, data)
+  def fail_response(msg = 'FAIL', data = {}, status = :ok)
+    render json: result(1, msg, data), status: status
   end
 
   def json_response(object, status = :ok)
