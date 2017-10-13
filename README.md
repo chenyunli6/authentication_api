@@ -13,18 +13,18 @@
   * bcrypt
 
 * Configuration
-  关于短信的配置
+  * 关于短信的配置
+    ```
     sms:
       company: 云片网
       expires_in: 3600 # second
+    ```  
 
 * Database creation
-  sqlite3
-
-* Database initialization
+  * sqlite3
 
 * How to run the test suite
-  rspec
+  * 在项目目录下 输入 rspec
 
 * 测试参考
   都是 post 方式
