@@ -30,15 +30,23 @@ RSpec.describe PasswordsController, type: :controller do
 
     context 'when password is not valid' do
       it 'returns failure message' do
-        expect { post :create, params: {} }.to raise_error(ActiveRecord::RecordInvalid, /Password can't be blank/)
+        post :create, params: {}
+        expect(response).to have_http_status(422)
+        expect(json['msg']).to match(/Password can't be blank/)
       end
 
       it 'returns failure message when password_confirmation is not match' do
-        expect { post :create, params: invalid_password }.to raise_error(ActiveRecord::RecordInvalid, /Password confirmation doesn't match Password/)
+        post :create, params: invalid_password
+        expect(response).to have_http_status(422)
+        expect(response.message).to eq('Unprocessable Entity')
+        expect(json['msg']).to match(/Password confirmation doesn't match Password/)
       end
 
       it 'returns failure message when password_confirmation is blank' do
-        expect { post :create, params: { password: '123123', password_confirmation: '' } }.to raise_error(ActiveRecord::RecordInvalid, /Password confirmation doesn't match Password/)
+        post :create, params: { password: '123123', password_confirmation: '' }
+        expect(response).to have_http_status(422)
+        expect(response.message).to eq('Unprocessable Entity')
+        expect(json['msg']).to match(/Password confirmation doesn't match Password/)
       end
     end
   end

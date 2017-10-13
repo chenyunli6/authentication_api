@@ -45,7 +45,9 @@ RSpec.describe AuthenticationController, type: :controller do
 
     context 'When request is invalid' do
       it 'returns a failure message' do
-        expect { post :create, params: invalid_credentials }.to raise_error(ExceptionHandler::AuthenticationError, /Invalid credentials/)
+        post :create, params: invalid_credentials
+        expect(response).to have_http_status(401)
+        expect(json['msg']).to match(/Invalid credentials/)
       end
     end
   end
