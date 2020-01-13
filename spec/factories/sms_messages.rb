@@ -8,7 +8,7 @@ FactoryGirl.define do
     send_status 'SUCCESS'
     report_status 'SUCCESS'
     fee 1
-    user_receive_time Faker::Time.between(DateTime.current - 1, DateTime.current)
+    user_receive_time Faker::Time.between(from: DateTime.current - 1, to: DateTime.current)
     error_msg nil
   end
 end

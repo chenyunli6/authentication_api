@@ -39,7 +39,7 @@ RSpec.describe SmsMessage, type: :model do
 
       it 'returns nil' do
         sms_message = create :sms_message, send_time:
-          Faker::Time.between(2.days.ago, 1.day.ago, :all)
+          Faker::Time.between(from: 2.days.ago, to: 1.day.ago)
         expect(SmsMessage.latest_message(sms_message.mobile)).to be_nil
       end
     end
